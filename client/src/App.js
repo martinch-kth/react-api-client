@@ -64,21 +64,21 @@ class App extends Component {
 
 
 
-/*
-    componentDidMount(){
+    /*
+        componentDidMount(){
 
-        axios.get(`/` + window.location.pathname)
-            .then(({ data }) => {
-                const  commit_data  = data;
+            axios.get(`/` + window.location.pathname)
+                .then(({ data }) => {
+                    const  commit_data  = data;
 
-                console.log(commit_data)
+                    console.log(commit_data)
 
-                this.setState({
-                    commit_data : data,
+                    this.setState({
+                        commit_data : data,
+                    });
                 });
-            });
-    }
-*/
+        }
+    */
 
     // make modal... do it...
     openModal(e) {
@@ -154,8 +154,8 @@ class App extends Component {
 
         console.log(this.state.commit_data.packages_partially_tested)
 
-      //  var some_data = this.state.commit_data.packages_partially_tested
-         var some_data = JSON.parse(this.state.commit_data.packages_partially_tested)  // convert obj to array ..JSON.parse??
+        //  var some_data = this.state.commit_data.packages_partially_tested
+        var some_data = JSON.parse(this.state.commit_data.packages_partially_tested)  // convert obj to array ..JSON.parse??
 
 
         if (e.id === "Partially tested")
@@ -207,84 +207,95 @@ class App extends Component {
         const { activeItem } = this.state
         return (
 
-        <Grid>
-            <Grid.Row>
-                <Grid.Column  width={12}>
-                    <Grid columns={4} stackable>
-                        <Grid.Column>
-                            <Segment raised>
-                                <Statistic>
-                                    <Statistic.Value>5,550</Statistic.Value>
-                                    <Statistic.Label>Total Methods</Statistic.Label>
-                                </Statistic>
-                            </Segment>
-                        </Grid.Column>
+            <Grid>
 
-                        <Grid.Column>
-                            <Segment raised>
-                                <Statistic>
-                                    <Statistic.Value>5,550</Statistic.Value>
-                                    <Statistic.Label>Tested</Statistic.Label>
-                                </Statistic>
-                            </Segment>
-                        </Grid.Column>
+                <div>
+                    <Modal
+                        isOpen={this.state.modalIsOpen}
+                        onAfterOpen={this.afterOpenModal}
+                        onRequestClose={this.closeModal}
+                        style={customStyles}
+                        contentLabel={this.state.modalLabel} >
+                        <h2 ref={subtitle => this.subtitle = subtitle}>{this.state.modalName}</h2>
 
-                        <Grid.Column>
-                            <Segment raised>
-                                <Statistic>
-                                    <Statistic.Value>5,550</Statistic.Value>
-                                    <Statistic.Label>Partially tested</Statistic.Label>
-                                </Statistic>
-                            </Segment>
-                        </Grid.Column>
-
-                        <Grid.Column>
-                            <Segment raised>
-                                <Statistic>
-                                    <Statistic.Value>5,550</Statistic.Value>
-                                    <Statistic.Label>Non-tested</Statistic.Label>
-                                </Statistic>
-                            </Segment>
-                        </Grid.Column>
-                    </Grid>
-                </Grid.Column>
-
-                     </Grid.Row>
-
-
-        <Grid.Row>
-            <Grid.Column>
-                <div className="chart">
-                    <ResponsiveTreeMapHtml
-                        onClick={(e) => this.openModal(e)}
-                        root={{"name":"Mutation test","color":"hsl(187, 70%, 50%)","children":[{"name":"org/apache/commons/codec/digest","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":106},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 2},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 44}]},{"name":"org/apache/commons/codec/language","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":100},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 5},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 3}]},{"name":"org/apache/commons/codec/binary","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":98},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 4},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 1}]},{"name":"org/apache/commons/codec/net","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":57},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 4},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 0}]},{"name":"org/apache/commons/codec/language/bm","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":51},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 2},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 5}]},{"name":"org/apache/commons/codec/cli","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":0},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 0},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 8}]},{"name":"org/apache/commons/codec","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":3},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 0},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 0}]}]}}
-                        //    root={JSON.parse(this.state.commit_data.treemap)}
-                        identity="name"
-                        value="loc"
-                        innerPadding={3}
-                        outerPadding={3}
-
-                        label="loc"
-                        labelFormat=".0s"
-                        labelSkipSize={12}
-                        labelTextColor="inherit:darker(1.2)"
-                        colors="red_yellow_green"
-                        colorBy="name"
-                        borderColor="inherit:darker(0.3)"
-                        animate={true}
-                        motionStiffness={90}
-                        motionDamping={11}
-                    />
+                        <ul>
+                            {this.state.modal_items}
+                        </ul>
+                        <button onClick={this.closeModal}>close</button>
+                    </Modal>
                 </div>
-            </Grid.Column>
-        </Grid.Row>
-      </Grid>
+
+                <Grid.Row>
+                    <Grid.Column  width={12}>
+                        <Grid columns={4} stackable>
+                            <Grid.Column>
+                                <Segment raised>
+                                    <Statistic>
+                                        <Statistic.Value>5,550</Statistic.Value>
+                                        <Statistic.Label>Total Methods</Statistic.Label>
+                                    </Statistic>
+                                </Segment>
+                            </Grid.Column>
+
+                            <Grid.Column>
+                                <Segment raised>
+                                    <Statistic>
+                                        <Statistic.Value>5,550</Statistic.Value>
+                                        <Statistic.Label>Tested</Statistic.Label>
+                                    </Statistic>
+                                </Segment>
+                            </Grid.Column>
+
+                            <Grid.Column>
+                                <Segment raised>
+                                    <Statistic>
+                                        <Statistic.Value>5,550</Statistic.Value>
+                                        <Statistic.Label>Partially tested</Statistic.Label>
+                                    </Statistic>
+                                </Segment>
+                            </Grid.Column>
+
+                            <Grid.Column>
+                                <Segment raised>
+                                    <Statistic>
+                                        <Statistic.Value>5,550</Statistic.Value>
+                                        <Statistic.Label>Non-tested</Statistic.Label>
+                                    </Statistic>
+                                </Segment>
+                            </Grid.Column>
+                        </Grid>
+                    </Grid.Column>
+
+                </Grid.Row>
 
 
+                <Grid.Row>
+                    <Grid.Column>
+                        <div className="chart">
+                            <ResponsiveTreeMapHtml
+                                onClick={(e) => this.openModal(e)}
+                                root={{"name":"Mutation test","color":"hsl(187, 70%, 50%)","children":[{"name":"org/apache/commons/codec/digest","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":106},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 2},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 44}]},{"name":"org/apache/commons/codec/language","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":100},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 5},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 3}]},{"name":"org/apache/commons/codec/binary","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":98},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 4},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 1}]},{"name":"org/apache/commons/codec/net","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":57},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 4},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 0}]},{"name":"org/apache/commons/codec/language/bm","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":51},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 2},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 5}]},{"name":"org/apache/commons/codec/cli","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":0},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 0},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 8}]},{"name":"org/apache/commons/codec","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":3},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 0},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 0}]}]}}
+                                //    root={JSON.parse(this.state.commit_data.treemap)}
+                                identity="name"
+                                value="loc"
+                                innerPadding={3}
+                                outerPadding={3}
 
-
-
-
+                                label="loc"
+                                labelFormat=".0s"
+                                labelSkipSize={12}
+                                labelTextColor="inherit:darker(1.2)"
+                                colors="red_yellow_green"
+                                colorBy="name"
+                                borderColor="inherit:darker(0.3)"
+                                animate={true}
+                                motionStiffness={90}
+                                motionDamping={11}
+                            />
+                        </div>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
         )
     } // render slut..
 }
