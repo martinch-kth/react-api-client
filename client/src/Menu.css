@@ -1,0 +1,10 @@
+#top-menu{
+    background: linear-gradient(120deg, rgb(0, 228, 208), rgb(89, 131, 232)) !important;
+}
+
+
+
+#top-menu a.item {
+    color: azure !important;
+    background: rgba(255, 255, 255, 0.13);
+}
