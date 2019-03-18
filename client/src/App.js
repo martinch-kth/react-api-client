@@ -37,15 +37,15 @@ class App extends Component {
 
         this.state = {
 
-            commit_data : {commit_id: "57a288746b9e67dead9ef1d6788620bd6f8184ae", date: new Date("2019-03-05T21:23:23.446Z"),username: "martinch-kth",repository:"commons-codec", packages_partially_tested: '{"pack":[{"link":"http://some/somelink"}]}' , commit_url: "http://github/somecommit_url" , treemap : mystring, descartes_results: "vet-ej-vad"},
+            commit_data : {commit_id: "57a288746b9e67dead9ef1d6788620bd6f8184ae", date: new Date("2019-03-05T21:23:23.446Z"),username: "martinch-kth",
+                           repository:"commons-codec", packages_partially_tested: '{"pack":[{"link":"http://some/somelink"}]}' ,
+                           commit_url: "http://github/somecommit_url" , treemap : mystring,
+                           methods_total: "33",tested_total: "22", partially_tested_total: "22", non_covered_total: "22"},
 
             modalIsOpen: false,
-            modalName : "Martin",
-
+            modalName : "Modal",
             modal_items : []
-
         };
-
     }
 
     callAPI() {
@@ -53,15 +53,12 @@ class App extends Component {
             .then(res => res.json())
             .then(res => this.setState({ commit_data: res
 
-            }))
-            .catch(err => err);
+            })).catch(err => err)
     }
 
     componentDidMount() {
         this.callAPI();
     }
-
-
 
 
     /*
@@ -80,7 +77,6 @@ class App extends Component {
         }
     */
 
-    // make modal... do it...
     openModal(e) {
 
         console.log(e)
@@ -154,9 +150,7 @@ class App extends Component {
 
         console.log(this.state.commit_data.packages_partially_tested)
 
-        //  var some_data = this.state.commit_data.packages_partially_tested
         var some_data = JSON.parse(this.state.commit_data.packages_partially_tested)  // convert obj to array ..JSON.parse??
-
 
         if (e.id === "Partially tested")
         {
@@ -167,7 +161,7 @@ class App extends Component {
             //    var arr = some_data[packname]
             var arr = some_data[packname]
 
-            // fel men,,, vwt ej hur..empty model array..
+            // fel men,,, vet ej hur..empty model array..
             this.state.modal_items = []
 
             for (var i = 0; i < arr.length; i++){
@@ -230,9 +224,14 @@ class App extends Component {
                         <Grid columns={4} stackable>
                             <Grid.Column>
                                 <Segment raised>
+                                    <Statistic value={this.state.commit_data.methods_total} label="Total Methods" size="large" color="black" />
+                                </Segment>
+                            </Grid.Column>
+
+                            <Grid.Column>
+                                <Segment raised>
                                     <Statistic>
-                                        <Statistic.Value>5,550</Statistic.Value>
-                                        <Statistic.Label>Total Methods</Statistic.Label>
+                                        <Statistic value={this.state.commit_data.tested_total} label="Total tested" size="large" color="black" />
                                     </Statistic>
                                 </Segment>
                             </Grid.Column>
@@ -240,8 +239,7 @@ class App extends Component {
                             <Grid.Column>
                                 <Segment raised>
                                     <Statistic>
-                                        <Statistic.Value>5,550</Statistic.Value>
-                                        <Statistic.Label>Tested</Statistic.Label>
+                                        <Statistic value={this.state.commit_data.partially_tested_total} label="Total partially tested" size="large" color="black" />
                                     </Statistic>
                                 </Segment>
                             </Grid.Column>
@@ -249,17 +247,7 @@ class App extends Component {
                             <Grid.Column>
                                 <Segment raised>
                                     <Statistic>
-                                        <Statistic.Value>5,550</Statistic.Value>
-                                        <Statistic.Label>Partially tested</Statistic.Label>
-                                    </Statistic>
-                                </Segment>
-                            </Grid.Column>
-
-                            <Grid.Column>
-                                <Segment raised>
-                                    <Statistic>
-                                        <Statistic.Value>5,550</Statistic.Value>
-                                        <Statistic.Label>Non-tested</Statistic.Label>
+                                        <Statistic value={this.state.commit_data.non_covered_total} label="Total non-covered" size="large" color="black" />
                                     </Statistic>
                                 </Segment>
                             </Grid.Column>
@@ -268,14 +256,20 @@ class App extends Component {
 
                 </Grid.Row>
 
+                <Grid.Row>
+                    <Grid.Column width={9}>
+                        <Segment raised><a href={this.state.commit_data.commit_url}>Link to GitHub commit!</a> </Segment>
+                    </Grid.Column>
+                </Grid.Row>
+
 
                 <Grid.Row>
                     <Grid.Column>
                         <div className="chart">
                             <ResponsiveTreeMapHtml
                                 onClick={(e) => this.openModal(e)}
-                                root={{"name":"Mutation test","color":"hsl(187, 70%, 50%)","children":[{"name":"org/apache/commons/codec/digest","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":106},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 2},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 44}]},{"name":"org/apache/commons/codec/language","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":100},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 5},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 3}]},{"name":"org/apache/commons/codec/binary","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":98},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 4},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 1}]},{"name":"org/apache/commons/codec/net","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":57},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 4},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 0}]},{"name":"org/apache/commons/codec/language/bm","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":51},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 2},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 5}]},{"name":"org/apache/commons/codec/cli","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":0},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 0},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 8}]},{"name":"org/apache/commons/codec","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":3},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 0},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 0}]}]}}
-                                //    root={JSON.parse(this.state.commit_data.treemap)}
+                               // root={{"name":"Mutation test","color":"hsl(187, 70%, 50%)","children":[{"name":"org/apache/commons/codec/digest","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":106},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 2},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 44}]},{"name":"org/apache/commons/codec/language","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":100},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 5},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 3}]},{"name":"org/apache/commons/codec/binary","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":98},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 4},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 1}]},{"name":"org/apache/commons/codec/net","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":57},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 4},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 0}]},{"name":"org/apache/commons/codec/language/bm","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":51},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 2},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 5}]},{"name":"org/apache/commons/codec/cli","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":0},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 0},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 8}]},{"name":"org/apache/commons/codec","color":"hsl(87, 70%, 50%)","children":[{"name": "Tested","color":"hsl(99, 98%, 51%)","loc":3},{"name":"Partially tested","color": "hsl(53, 100%, 50%)","loc": 0},{"name": "Not covered","color": "hsl(348, 100%, 50%)","loc": 0}]}]}}
+                                root={JSON.parse(this.state.commit_data.treemap)}
                                 identity="name"
                                 value="loc"
                                 innerPadding={3}

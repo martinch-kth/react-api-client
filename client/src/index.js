@@ -4,13 +4,11 @@ import './index.css';
 import App from './App';
 import Menu from './Menu';
 
-import Menu_vertical from './Menuvertical';
-
-//import * as serviceWorker from './serviceWorker';
-
-import 'semantic-ui-css/semantic.min.css';
+import * as serviceWorker from './serviceWorker';
 
 import registerServiceWorker from './registerServiceWorker';
+
+import 'semantic-ui-css/semantic.min.css';
 
 import {Tab, Container, Grid} from 'semantic-ui-react';
 import Calendar from "./Calendar";
@@ -30,7 +28,6 @@ ReactDOM.render(<Fragment><Container fluid >
 
     <Menu/>
 
-
     <Tab menu={{ fluid: false, vertical: true, tabular: false }} panes={panes} grid={{paneWidth:14,tabWidth:2}} />
 
     </Container></Fragment>, document.getElementById('root'));
@@ -38,8 +35,9 @@ ReactDOM.render(<Fragment><Container fluid >
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-//serviceWorker.unregister();
+
+serviceWorker.unregister();
 
 
 
-registerServiceWorker();
+//registerServiceWorker();
