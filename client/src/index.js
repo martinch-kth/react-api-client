@@ -17,8 +17,8 @@ import Calendar from "./Calendar";
 
 
 const panes = [
-    { menuItem: 'Treemap', render: () => <Tab.Pane> <App/> </Tab.Pane> },
-    { menuItem: 'Calendar', render: () => <Tab.Pane><Calendar/></Tab.Pane> },
+    { menuItem: 'Commit Result', render: () => <Tab.Pane> <App/> </Tab.Pane> },
+    { menuItem: 'Historical Results', render: () => <Tab.Pane><Calendar/></Tab.Pane> },
     { menuItem: 'Stats', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
 ]
 

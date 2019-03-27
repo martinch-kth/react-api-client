@@ -15,23 +15,31 @@ body{
 
 }
 
+
+div span{
+
+  opacity:1 !important;
+  background: #0000 !important;
+}
+
 a{
+
 
 }
 
 #Tested{
-  background:#a6d96a !important;
-  color: #a6d96a !important;
+  background:#47b39d !important;
+  color: #47b39d !important;
 }
 
 #Partially-tested{
-  background: #ffffbf !important;
-  color : #ffffbf !important;
+  background: #ffc153 !important;
+  color : #ffc153 !important;
 }
 
 #Not-covered{
-  background: #d73027 !important;
-  color: #d73027 !important;
+  background: #eb6b56 !important;
+  color: #eb6b56 !important;
 }
 
 #stats {

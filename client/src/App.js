@@ -8,7 +8,16 @@ import './App.css';
 
 import { ResponsiveTreeMapHtml } from '@nivo/treemap'
 
+
+
+
+
+//import roundNode from "./round";
+
 import axios from 'axios';
+import round from "./round";
+
+
 
 const customStyles = {
     content : {
@@ -199,6 +208,7 @@ class App extends Component {
     render() {
 
         const { activeItem } = this.state
+
         return (
 
             <Grid>
@@ -220,18 +230,18 @@ class App extends Component {
                 </div>
 
                 <Grid.Row>
-                    <Grid.Column  width={12}>
+                    <Grid.Column  width={9}>
                         <Grid columns={4} stackable>
                             <Grid.Column>
                                 <Segment raised>
-                                    <Statistic value={this.state.commit_data.methods_total} label="Total Methods" size="large" color="black" />
+                                    <Statistic value={this.state.commit_data.methods_total} label="Total Methods" size="small" color="black" />
                                 </Segment>
                             </Grid.Column>
 
                             <Grid.Column>
                                 <Segment raised>
                                     <Statistic>
-                                        <Statistic value={this.state.commit_data.tested_total} label="Total tested" size="large" color="black" />
+                                        <Statistic value={this.state.commit_data.tested_total} label="tested" size="small" color="black" />
                                     </Statistic>
                                 </Segment>
                             </Grid.Column>
@@ -239,7 +249,7 @@ class App extends Component {
                             <Grid.Column>
                                 <Segment raised>
                                     <Statistic>
-                                        <Statistic value={this.state.commit_data.partially_tested_total} label="Total partially tested" size="large" color="black" />
+                                        <Statistic value={this.state.commit_data.partially_tested_total} label="Partially tested" size="small" color="black" />
                                     </Statistic>
                                 </Segment>
                             </Grid.Column>
@@ -247,7 +257,7 @@ class App extends Component {
                             <Grid.Column>
                                 <Segment raised>
                                     <Statistic>
-                                        <Statistic value={this.state.commit_data.non_covered_total} label="Total non-covered" size="large" color="black" />
+                                        <Statistic value={this.state.commit_data.non_covered_total} label="non-covered" size="small" color="black" />
                                     </Statistic>
                                 </Segment>
                             </Grid.Column>
@@ -272,12 +282,12 @@ class App extends Component {
                                 root={JSON.parse(this.state.commit_data.treemap)}
                                 identity="name"
                                 value="loc"
-                                innerPadding={3}
-                                outerPadding={3}
+                                innerPadding={5}
+                                outerPadding={5}
 
                                 label="loc"
-                                labelFormat=".0s"
-                                labelSkipSize={12}
+                                labelFormat="0"
+                                labelSkipSize={2}
                                 labelTextColor="inherit:darker(1.2)"
                                 colors="red_yellow_green"
                                 colorBy="name"
